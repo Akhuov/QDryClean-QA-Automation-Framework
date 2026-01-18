@@ -1,4 +1,5 @@
 import pytest
+from api.schemas.auth.success_schema import AuthSuccessSchema
 from core.http.api_client import ApiClient
 
 
@@ -14,8 +15,11 @@ def logged_client(settings):
     response = client.post("/auth", payload)
 
     assert response.status_code == 200, response.text
-    assert response.json()["token"] is not None, "response is None"
 
-    client.set_token(response.json()["token"])
+    # Валидация ответа через схему
+    auth = AuthSuccessSchema(**response.json())
+
+    # Используем валидированный токен
+    client.set_token(auth.token)
 
     return client
