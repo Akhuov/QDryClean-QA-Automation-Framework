@@ -18,14 +18,14 @@ Technologies used: **Pytest**, **Playwright**, **Requests**, **Allure**.
 ## Installation
 
 1. Clone the repository and create a virtual environment:
-```cmd
+```bash
 python -m venv venv
 venv\Scripts\activate
 ```
 
 2. Install all required packages using ***requirements.txt***:
 
-```cmd
+```bash
 pip install -r requirements.txt
 ```
 * requirements.txt includes all mandatory libraries:
@@ -40,7 +40,7 @@ pip install -r requirements.txt
   * "allure-pytest (Allure reporting)"
 
 3. Install Browsers:
-```cmd
+```bash
 playwright install
 ```
 
@@ -48,19 +48,19 @@ playwright install
 
 # Running Tests
 Run all tests:
-```cmd
+```bash
 pytest
 ```
 
 Run with verbose output and short traceback:
-```cmd
+```bash
 pytest -v --tb=short
 ```
 ---
 
 # Parallel Test Execution
 Run tests in parallel (uses pytest-xdist from requirements.txt):
-```cmd
+```bash
 pytest -n 4
 ```
 -n 4 — runs tests on 4 parallel workers.
@@ -69,13 +69,13 @@ pytest -n 4
 
 # Repeating Tests
 Run a test multiple times (uses pytest-repeat from requirements.txt):
-```cmd
+```bash
 pytest --count=5
 ```
 
 # Linting with Ruff
 Ruff helps keep your code clean and consistent (installed via requirements.txt):
-```cmd
+```bash
 ruff check .          # check code
 ruff check . --fix    # check and automatically fix issues
 ```
@@ -83,8 +83,12 @@ ruff check . --fix    # check and automatically fix issues
 
 # Generating Reports
 Run tests with an HTML report:
-```cmd
+```bash
 pytest --template=html1/index.html --report=reports\file_name.html
+```
+To open the report after test execution, use:
+```bash
+allure serve allure-results
 ```
 ---
 # References
