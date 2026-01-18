@@ -24,3 +24,7 @@ class ApiClient:
     @allure.step("PUT {path}")
     def put(self, path, json=None, **kwargs):
         return self.session.put(self.base_url + path, json=json, **kwargs)
+
+    @allure.step("DELETE {path}")
+    def delete(self, path, **kwargs):
+        return self.session.delete(self.base_url + path, **kwargs)
