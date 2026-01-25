@@ -1,5 +1,5 @@
 import pytest
-from api.schemas.auth.success_schema import AuthSuccessSchema
+from api.schemas.api_response import ApiResponseSchema
 from core.http.api_client import ApiClient
 
 
@@ -7,19 +7,19 @@ from core.http.api_client import ApiClient
 def logged_client(settings):
 
     payload = {
-        "logIn": settings["login"],
-        "password": settings["password"],
+        "logIn": settings.test_login,
+        "password": settings.test_password,
     }
 
-    client = ApiClient(settings["back_end_url"])
+    client = ApiClient(settings.back_end_url)
     response = client.post("/auth", payload)
 
     assert response.status_code == 200, response.text
 
     # Валидация ответа через схему
-    auth = AuthSuccessSchema(**response.json())
+    auth = ApiResponseSchema(**response.json())
 
     # Используем валидированный токен
-    client.set_token(auth.token)
+    client.set_token(auth.response)
 
     return client
