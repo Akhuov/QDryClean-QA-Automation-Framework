@@ -39,5 +39,5 @@ def test_failure_auth(settings, log_in, password, expected_message):
             "password": password,
         })
 
-    assert exc.value.status_code == 400
+    assert exc.value.status_code == 401
     assert exc.value.message == expected_message

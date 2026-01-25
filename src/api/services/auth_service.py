@@ -1,7 +1,7 @@
 import allure
 from api.exceptions.auth import AuthError, InvalidCredentialsError
-from api.schemas.auth.error_schema import AuthErrorSchema
-from api.schemas.auth.success_schema import AuthSuccessSchema
+from api.schemas.api_response import ApiResponseSchema
+# from api.schemas.auth.auth_schema import AuthResponseSchema
 from api.utils.sanitizer import sanitize_dict
 from core.http.api_client import ApiClient
 
@@ -13,21 +13,21 @@ class AuthService(ApiClient):
 
         if response.status_code == 200:
             allure.dynamic.title("Login test - Positive user authentication")
-            return AuthSuccessSchema(**response.json()).token
+            return ApiResponseSchema(**response.json()).response
 
         error_body = sanitize_dict(response.json())
-        error = AuthErrorSchema(**error_body)
+        error = ApiResponseSchema(**error_body)
         allure.dynamic.title("Login test - Negative user authentication")
 
-        if response.status_code == 400:
+        if response.status_code == 401:
             raise InvalidCredentialsError(
-                status_code=400,
-                message=error.errorMessage,
+                status_code=401,
+                message=error.message,
                 response_body=error_body,  # безопасно
             )
 
         raise AuthError(
             status_code=response.status_code,
-            message=error.errorMessage,
+            message=error.message,
             response_body=error_body,  # безопасно
         )
