@@ -1,7 +1,6 @@
 import allure
 from api.exceptions.auth import AuthError, InvalidCredentialsError
 from api.schemas.api_response import ApiResponseSchema
-# from api.schemas.auth.auth_schema import AuthResponseSchema
 from api.utils.sanitizer import sanitize_dict
 from core.http.api_client import ApiClient
 
