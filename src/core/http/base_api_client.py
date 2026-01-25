@@ -1,6 +1,5 @@
 import json
 import allure
-
 from api.utils.headers import sanitize_headers
 from api.utils.sanitizer import sanitize_dict
 
@@ -19,6 +18,7 @@ class BaseApiClient:
             name="HTTP Request",
             attachment_type=allure.attachment_type.JSON,
         )
+
     @staticmethod
     def _attach_response(response):
         body = None
