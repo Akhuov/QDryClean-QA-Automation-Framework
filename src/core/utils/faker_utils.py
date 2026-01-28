@@ -19,7 +19,6 @@ def random_user_data():
         "first_name": faker.first_name(),
         "last_name": faker.last_name(),
         "email": f"{faker.user_name()}@example.com",
-        "phone": faker.phone_number(),
         "position": faker.job(),
         "password": faker.password(length=8, special_chars=True, digits=True, upper_case=True, lower_case=True)
     }

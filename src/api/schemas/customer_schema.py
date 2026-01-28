@@ -4,9 +4,9 @@ from pydantic import  Field
 @dataclass
 class CustomerSchema:
     # Поля, необходимые для создания клиента
-    first_name: str = Field(..., alias="firstName")
+    first_name: str | None = Field(..., alias="firstName")
     last_name: str | None = Field(..., alias="lastName")
-    phone_number: str = Field(..., alias="phoneNumber")
+    phone_number: str | None = Field(..., alias="phoneNumber")
     additional_phone_number: str | None = Field(..., alias="additionalPhoneNumber")
 
     # Дополнительные поля, которые могут быть возвращены API
