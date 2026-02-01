@@ -9,6 +9,6 @@ def assert_error_response(
     body = response.json()
 
     if empty_response:
-        assert body.get("response") == {}, "Expected empty response"
+        assert body.get("response") is None, "Expected empty response"
 
     assert body.get("message") == message, f"Expected message: {message}, got: {body.get('message')}"

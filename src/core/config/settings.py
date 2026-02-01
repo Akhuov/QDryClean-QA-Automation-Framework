@@ -9,6 +9,8 @@ class Settings(BaseSettings):
     back_end_url: str = Field(default="")
     front_end_url: str = Field(default="")
     storage_state_path: str = Field(default="")
+    db_password : str = Field(default="")
+
 
     model_config = SettingsConfigDict(
         env_file=".env",

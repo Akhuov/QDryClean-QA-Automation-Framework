@@ -3,6 +3,7 @@ from api.schemas.api_response import ApiResponseSchema
 from api.schemas.customer_schema import CustomerSchema
 from api.utils.assertions import assert_error_response
 from api.utils.comparators import is_subset
+from core.db_queries.customers import get_customer_by_phone_number
 from core.utils.faker_utils import random_phone_number
 from dataclasses import replace
 
@@ -16,10 +17,14 @@ class TestPostCustomer:
         additional_phone_number=random_phone_number()
     )
 
-    def test_post_customer_success(self, logged_client):
+    def test_post_customer_success(self, logged_client, db_cursor):
         response = logged_client.post("/customers", json=self.BASE_CUSTOMER.to_dict())
         res = ApiResponseSchema[CustomerSchema](**response.json()).response
         assert is_subset(res.to_dict(), self.BASE_CUSTOMER.to_dict()), "The created customer does not match the payload."
+
+        customer = get_customer_by_phone_number(db_cursor, res.phone_number)
+        assert customer is not None
+
 
     @pytest.mark.parametrize(
         "invalid_payload, error_message",
@@ -50,5 +55,3 @@ class TestPostCustomer:
             expected_status_code=400,
             message=error_message
         )
-
-        print(error_message)
